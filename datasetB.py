@@ -1,0 +1,73 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+df = pd.read_csv("ML Project/Dataset_B_clean.csv")
+
+print(df.head())
+print(df["Authenticity"].value_counts())
+
+X = df["News"]
+y = df["Authenticity"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
+
+
+vectorizer = TfidfVectorizer()
+
+X_train = vectorizer.fit_transform(X_train)
+X_test = vectorizer.transform(X_test)
+
+print("Training size:", X_train.shape)
+print("Testing size:", X_test.shape)
+
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+
+nb = MultinomialNB()
+nb.fit(X_train, y_train)
+
+pred_nb = nb.predict(X_test)
+
+print("=== Naive Bayes ===")
+print("Accuracy:", accuracy_score(y_test, pred_nb))
+print(classification_report(y_test, pred_nb))
+
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression(max_iter=1000, class_weight="balanced")
+lr.fit(X_train, y_train)
+
+pred_lr = lr.predict(X_test)
+
+print("=== Logistic Regression ===")
+print("Accuracy:", accuracy_score(y_test, pred_lr))
+print(classification_report(y_test, pred_lr))
+
+from sklearn.svm import LinearSVC
+
+svm = LinearSVC(class_weight="balanced")
+svm.fit(X_train, y_train)
+
+pred_svm = svm.predict(X_test)
+
+print("=== SVM ===")
+print("Accuracy:", accuracy_score(y_test, pred_svm))
+print(classification_report(y_test, pred_svm))
+
+from sklearn.ensemble import RandomForestClassifier
+
+rf = RandomForestClassifier()
+rf.fit(X_train, y_train)
+
+pred_rf = rf.predict(X_test)
+
+print("=== Random Forest ===")
+print("Accuracy:", accuracy_score(y_test, pred_rf))
+print(classification_report(y_test, pred_rf))
