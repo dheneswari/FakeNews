@@ -1,5 +1,23 @@
 # Fake News Detection in Malaysian Tamil Media
 
-**Machine Learning:** Naive Bayes, SVM, Random Forest, Logistic Regression<br>
-**Deep Learning:** CNN and BiLSTM
+## Model Overview
+
+### Machine Learning
+
+* **Naive Bayes**
+* **Support Vector Machine (SVM)**
+* **Random Forest**
+* **Logistic Regression**
+  
+### Deep Learning
+
+* **Convolutional Neural Network (CNN)**
+* **Bidirectional Long Short-Term Memory (BiLSTM)**
+
+### Transformer Models
+
+* **mBERT (Multilingual BERT)**
+* **IndicBERT**
+* Implemented using **Google Colab**.
+
 
